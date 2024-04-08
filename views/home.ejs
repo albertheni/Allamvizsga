@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home Page</title>
+  <style>
+    body {
+      font-family: "Times New Roman", Times, serif;
+      margin: 0;
+      padding: 0;
+      background-image: url("images/background.jpg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 100px auto;
+      padding: 40px;
+      background-color: transparent;
+      text-align: center;
+    }
+    
+    .container h1 {
+      font-size: 36px;
+      color: #7d4a13;
+      margin-bottom: 20px;
+      font-family: "Times New Roman", Times, serif;
+    }
+    
+    .container h2 {
+      font-size: 24px;
+      color: #7d4a13;
+      margin-bottom: 20px;
+      font-family: "Times New Roman", Times, serif;
+    }
+    
+    .container p {
+      font-size: 16px;
+      color: #7d4a13;
+      margin-bottom: 20px;
+      line-height: 1.5;
+      font-family: "Times New Roman", Times, serif;
+    }
+    
+    .container .btn-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    
+    .container .btn-container button {
+      padding: 10px 20px;
+      background-color: #7d4a13;
+      color: #fbead8;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0 10px;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 18px;
+    }
+    
+    .container .btn-container button:hover {
+      background-color: #b88855;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Üdvözöllek a SütiVarázs oldalon!</h1>
+    <h2>Keress rá, vagy oszd meg velünk kedvenc receptjeidet!</h2>
+    <p>Kérlek jelentkezz be! Ha pedig új vagy még itt, csatlakozz hozzánk!</p>
+    <div class="btn-container">
+      <button onclick="location.href='/login'">Bejelentkezés</button> <!-- (link)ahhoz az oldalhoz visz, ahova kattintunk -->
+      <button onclick="location.href='/register'">Regisztráció</button>
+    </div>
+  </div>
+</body>
+</html>
