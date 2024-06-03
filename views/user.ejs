@@ -10,24 +10,253 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-start;
-      min-height: 100vh;
-      position: relative;
-    }
-
-    .welcome-message {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      font-size: 20px;
-      color: #7d4a13;
       font-family: "Times New Roman", Times, serif;
     }
+
+    .header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .logout-button {
+      font-size: 20px;
+      color: #7d4a13;
+      background-color: transparent;
+      border: 2px solid #7d4a13;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-family: "Times New Roman", Times, serif;
+      font-weight: bold;
+    }
+
+    .logout-button:hover {
+      background-color: #fbead8;
+    }
+
+    .search-bar {
+      font-size: 20px;
+      padding: 5px 10px;
+      border: 2px solid #7d4a13;
+      border-radius: 5px;
+      font-family: "Times New Roman", Times, serif;
+      width: 150px; /* kisebb szélesség beállítása */
+    }
+
+    .recipe-container {
+      width: 100%;
+      height: calc(100vh - 100px); /* A képernyő méretének csökkentése a fejlécben és a receptkonténerben elfoglalt hely miatt */
+      overflow-y: auto; /* Csak a receptkonténer legyen görgethető */
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      box-sizing: border-box;
+    }
+
+    .recipe-card {
+      background-color: #fbead8;
+      border: 1px solid #7d4a13;
+      border-radius: 5px;
+      margin-bottom: 20px;
+      padding: 20px;
+      color: #6a370f;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .recipe-card h2 {
+      margin-top: 0;
+    }
+
+    .recipe-card img {
+      float: left;
+      margin-right: 20px;
+      width: 150px;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    .recipe-card p {
+      overflow: hidden;
+    }
+
+    /* Modális stílusok */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgb(0,0,0); 
+      background-color: rgba(0,0,0,0.4); 
+      padding-top: 60px; 
+    }
+
+    .modal-content {
+      background-color: #fbead8;
+      margin: 5% auto;
+      padding: 20px;
+      border: 1px solid #7d4a13;
+      width: 80%;
+      border-radius: 10px;
+      position: relative;
+      color: #6a370f;
+    }
+
+    .close {
+      color: #7d4a13;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: black;
+      cursor: pointer;
+    }
+
+    .modal img {
+      display: block;
+      float: right;
+      margin: 0 auto;
+      width: 30%; /* Állítsuk be a kívánt szélességet */
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .modal-content h2 {
+      text-align: left; /* Igazítsa balra a címet */
+    }
+
   </style>
 </head>
 <body>
-  <div class="welcome-message">Üdvözöllek kedves felhasználó!</div>
+  <div class="header">
+    <button class="logout-button" onclick="location.href='/login'">Kijelentkezés</button>
+    <input type="text" class="search-bar" id="searchInput" onkeyup="searchRecipes()" placeholder="Keresés">
+  </div>
+  <div class="recipe-container" id="recipeContainer">
+    <!-- A receptkártyák dinamikusan generálódnak itt -->
+  </div>
+
+  <!-- Modális ablak -->
+  <div id="recipeModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <img id="modalImage" src="" alt="">
+      <p id="modalDescription"></p>
+      <h3>Hozzávalók:</h3>
+      <ul id="modalIngredients"></ul>
+      <h3>Elkészítési útmutató:</h3>
+      <ol id="modalInstructions"></ol>
+      <p id="modalPrepTime"></p>
+      <p id="modalCookTime"></p>
+      <p id="modalServings"></p>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('recipes.json')
+        .then(response => response.json())
+        .then(data => {
+          const recipeContainer = document.getElementById('recipeContainer');
+          const modal = document.getElementById('recipeModal');
+          const modalClose = document.getElementsByClassName('close')[0];
+
+          modalClose.onclick = function() {
+            modal.style.display = 'none';
+          }
+
+          window.onclick = function(event) {
+            if (event.target == modal) {
+              modal.style.display = 'none';
+            }
+          }
+
+          data.receptek.forEach(recipe => {
+            const recipeCard = document.createElement('div');
+            recipeCard.className = 'recipe-card';
+
+            const recipeImage = document.createElement('img');
+            recipeImage.src = recipe.kep;
+            recipeImage.alt = recipe.nev;
+
+            const recipeTitle = document.createElement('h2');
+            recipeTitle.textContent = recipe.nev;
+
+            const recipeDescription = document.createElement('p');
+            recipeDescription.textContent = recipe.leiras;
+
+            recipeCard.appendChild(recipeImage);
+            recipeCard.appendChild(recipeTitle);
+            recipeCard.appendChild(recipeDescription);
+
+            recipeCard.onclick = function() {
+              document.getElementById('modalTitle').textContent = recipe.nev;
+              document.getElementById('modalImage').src = recipe.kep;
+              document.getElementById('modalImage').alt = recipe.nev;
+              document.getElementById('modalDescription').textContent = recipe.leiras;
+
+              const modalIngredients = document.getElementById('modalIngredients');
+              modalIngredients.innerHTML = '';
+              recipe.hozzavalok.forEach(ingredient => {
+                const li = document.createElement('li');
+                li.textContent = ingredient;
+                modalIngredients.appendChild(li);
+              });
+
+              const modalInstructions = document.getElementById('modalInstructions');
+              modalInstructions.innerHTML = '';
+              recipe.keszitesi_utmutato.split('. ').forEach(step => {
+                if (step.trim().length > 0) {
+                  const li = document.createElement('li');
+                  li.textContent = step.trim();
+                  modalInstructions.appendChild(li);
+                }
+              });
+
+              document.getElementById('modalPrepTime').textContent = `Előkészítési idő: ${recipe.elokeszitesi_ido}`;
+              document.getElementById('modalCookTime').textContent = `Sütési idő: ${recipe.sutesi_ido}`;
+              document.getElementById('modalServings').textContent = `Adagok száma: ${recipe.adagok_szama}`;
+
+              modal.style.display = 'block';
+            };
+
+            recipeContainer.appendChild(recipeCard);
+          });
+        })
+        .catch(error => console.error('Error fetching the recipes:', error));
+    });
+
+    function searchRecipes() {
+      const input = document.getElementById('searchInput');
+      const filter = input.value.toLowerCase();
+      const recipeContainer = document.getElementById('recipeContainer');
+      const recipeCards = recipeContainer.getElementsByClassName('recipe-card');
+
+      for (let i = 0; i < recipeCards.length; i++) {
+        const h2 = recipeCards[i].getElementsByTagName('h2')[0];
+        const p = recipeCards[i].getElementsByTagName('p')[0];
+        const textValue = h2.textContent || h2.innerText;
+        const descriptionValue = p.textContent || p.innerText;
+
+        if (textValue.toLowerCase().indexOf(filter) > -1 || descriptionValue.toLowerCase().indexOf(filter) > -1) {
+          recipeCards[i].style.display = '';
+        } else {
+          recipeCards[i].style.display = 'none';
+        }
+      }
+    }
+  </script>
 </body>
 </html>

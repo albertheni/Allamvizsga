@@ -1,0 +1,105 @@
+{
+    "receptek": [
+      {
+        "nev": "Csokoládés Brownie",
+        "kep": "images/brownie.jpg",
+        "leiras": "Egy gazdag és szaftos csokoládés sütemény, amely tökéletesen olvad a szádban.",
+        "hozzavalok": ["200 g étcsokoládé", "150 g vaj", "200 g cukor", "3 tojás", "100 g liszt", "1 teáskanál vanília kivonat", "Egy csipet só"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Vajazz ki egy 20x20 cm-es tepsit. Olvaszd fel a csokoládét és a vajat egy tálban gőz fölött, majd hagyd kicsit hűlni. Keverd hozzá a cukrot, majd egyesével a tojásokat, jól elkeverve minden hozzáadás után. Add hozzá a vanília kivonatot és a csipet sót. Szitáld hozzá a lisztet, és óvatosan keverd össze, amíg egységes tésztát nem kapsz. Öntsd a tésztát a kivajazott tepsibe, és süsd 25-30 percig. Hagyd teljesen kihűlni, majd szeleteld.",
+        "elokeszitesi_ido": "15 perc",
+        "sutesi_ido": "25-30 perc",
+        "adagok_szama": "12 szelet"
+      },
+      {
+        "nev": "Almás Pite",
+        "kep": "images/almaspite.jpg",
+        "leiras": "Frissen sült omlós tészta, lédús almás töltelékkel.",
+        "hozzavalok": ["250 g liszt", "150 g vaj", "100 g cukor", "1 tojás", "1 teáskanál sütőpor", "4-5 alma", "2 evőkanál fahéj", "2 evőkanál citromlé"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Vajazz ki egy piteformát. Keverd össze a lisztet, vajat, cukrot, tojást és sütőport, amíg sima tésztát nem kapsz. Csomagold be a tésztát fóliába, és tedd hűtőbe 30 percre. Hámozd meg és szeleteld fel az almákat, majd keverd össze fahéjjal és citromlével. Nyújtsd ki a tésztát, és helyezd a piteformába. Terítsd rá az almás keveréket, majd fedd be a maradék tésztával (például rácsozva). Süsd 40-45 percig, amíg aranybarna nem lesz. Hagyd kihűlni szeletelés előtt.",
+        "elokeszitesi_ido": "30 perc",
+        "sutesi_ido": "40-45 perc",
+        "adagok_szama": "8 szelet"
+      },
+      {
+        "nev": "Citromos Mákos Muffin",
+        "kep": "images/citromosmakos.jpg",
+        "leiras": "Frissítő citrom és ropogós mák kombinációja, amely tökéletes reggeli vagy uzsonna. Gyorsan elkészíthető és rendkívül ízletes.",
+        "hozzavalok": ["200 g liszt", "150 g cukor", "2 tojás", "100 ml tej", "100 ml olaj", "2 evőkanál mák", "1 teáskanál sütőpor", "1 citrom reszelt héja és leve"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Készíts elő 12 muffinformát papír kapszlikkal. Keverd össze a lisztet, cukrot, mákot és sütőport egy nagy tálban. Egy másik tálban keverd össze a tojásokat, tejet, olajat, citromhéjat és citromlevet. Öntsd a nedves hozzávalókat a száraz hozzávalókhoz, és keverd össze, amíg egységes tésztát nem kapsz. Töltsd meg a muffinformákat a tésztával, körülbelül háromnegyedig. Süsd 20-25 percig, amíg aranybarnák nem lesznek és a tetejük rugalmas. Hagyd hűlni.",
+        "elokeszitesi_ido": "15 perc",
+        "sutesi_ido": "20-25 perc",
+        "adagok_szama": "12 muffin"
+      },
+      {
+        "nev": "Sárgarépás Torta",
+        "kep": "images/repatorta.jpg",
+        "leiras": "Egy egészségesebb alternatíva, amely tele van ízzel. A szaftos sárgarépa és a fűszeres tészta egyesül ebben az ínycsiklandó süteményben.",
+        "hozzavalok": ["300 g sárgarépa (reszelt)", "200 g liszt", "150 g cukor", "150 ml olaj", "3 tojás", "1 teáskanál fahéj", "1 teáskanál szódabikarbóna", "1 teáskanál sütőpor", "Egy csipet só"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Vajazz ki és lisztezz meg egy 24 cm-es tortaformát. Reszeld le a sárgarépát finomra. Keverd össze a lisztet, cukrot, fahéjat, szódabikarbónát, sütőport és sót egy nagy tálban. Egy másik tálban keverd össze a tojásokat és az olajat. Add hozzá a nedves hozzávalókat a száraz hozzávalókhoz, majd keverd bele a reszelt sárgarépát. Öntsd a tésztát a tortaformába, és süsd 40-45 percig, amíg tűpróbánál tiszta marad a tű. Hagyd kihűlni.",
+        "elokeszitesi_ido": "20 perc",
+        "sutesi_ido": "40-45 perc",
+        "adagok_szama": "8 szelet"
+      },
+      {
+        "nev": "Málnás Sajttorta",
+        "kep": "images/malnassajttorta.jpeg",
+        "leiras": "Egy krémes és lágy sajttorta, amelyet friss málna tesz még finomabbá. Készítsd el ezt az elegáns desszertet egy különleges alkalomra!",
+        "hozzavalok": ["200 g kekszmorzsa", "100 g vaj (olvasztott)", "500 g krémsajt", "200 g cukor", "3 tojás", "200 g málna", "1 teáskanál vanília kivonat"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 160°C-ra. Készíts elő egy 24 cm-es tortaformát sütőpapírral. Keverd össze a kekszmorzsát és az olvasztott vajat, majd nyomkodd egyenletesen a tortaforma aljába. Egy nagy tálban keverd simára a krémsajtot és a cukrot. Egyesével add hozzá a tojásokat, mindegyiket jól elkeverve .Add hozzá a vanília kivonatot és keverd el. Öntsd a krémsajtos keveréket a kekszalapra, és szórd meg málnával. Süsd 50-60 percig, amíg a közepén már csak enyhén remeg. Hagyd teljesen kihűlni, majd tedd hűtőbe legalább 2 órára. ",
+        "elokeszitesi_ido": "20 perc",
+        "sutesi_ido": "50-60 perc",
+        "adagok_szama": "8 szelet"
+      },
+      {
+        "nev": "Kókuszgolyó",
+        "kep": "images/kokuszgolyo.jpg",
+        "leiras": "Kókuszos és kakaós finomság, amit nem kell sütni. Gyors és egyszerű recept, amely mindig nagy sikert arat.",
+        "hozzavalok": ["200 g darált keksz", "100 g porcukor", "2 evőkanál kakaópor", "100 g vaj (olvasztott)", "100 ml tej", "100 g kókuszreszelék"],
+        "keszitesi_utmutato": "Egy nagy tálban keverd össze a darált kekszet, porcukrot és kakaóport. Add hozzá az olvasztott vajat és a tejet, majd gyúrj belőle egységes masszát. Nedves kézzel formázz kis golyókat a masszából. Forgasd meg a golyókat a kókuszreszelékben. Tedd hűtőbe legalább egy órára, hogy megdermedjenek.",
+        "elokeszitesi_ido": "15 perc",
+        "sutesi_ido": "-",
+        "adagok_szama": "20 golyó"
+      },
+      {
+        "nev": "Tiramisu",
+        "kep": "images/tiramisu.jpg",
+        "leiras": "Az olasz klasszikus, amely kávéval és mascarponéval készül. Ez a könnyű és ízletes desszert biztosan a kedvenced lesz!",
+        "hozzavalok": ["250 g mascarpone", "200 ml habtejszín", "100 g cukor", "200 ml kávé (kihűlt)", "2 evőkanál kakaópor", "1 csomag babapiskóta"],
+        "keszitesi_utmutato": "Főzd le a kávét, majd hagyd kihűlni. Egy tálban keverd simára a mascarponét a cukorral. Verd fel a habtejszínt kemény habbá, majd óvatosan keverd a mascarponéhoz. Mártsd a babapiskótákat a kihűlt kávéba, majd rétegezd őket egy tálba. Terítsd a krémet a piskótákra, és ismételd a rétegezést, amíg a hozzávalók elfogynak. Szórd meg a tetejét kakaóporral, majd tedd hűtőbe legalább 2 órára, hogy összeérjenek az ízek.",
+        "elokeszitesi_ido": "20 perc",
+        "sutesi_ido": "-",
+        "adagok_szama": "8 adag"
+      },
+      {
+        "nev": "Epres Piskóta",
+        "kep": "images/eprespiskota.jpg",
+        "leiras": "Puha és könnyű piskóta, édes eperrel megbolondítva. Egy egyszerű, de lenyűgöző sütemény, amely bármilyen alkalomra tökéletes.",
+        "hozzavalok": ["4 tojás", "200 g cukor", "200 g liszt", "1 teáskanál sütőpor", "200 g eper (szeletelt)", "100 ml tejszín (felvert)"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Vajazz ki egy 24 cm-es tortaformát. Verd fel a tojásokat és a cukrot habosra és világosra. Keverd hozzá a lisztet és a sütőport, óvatosan összeforgatva, hogy ne törjön össze a hab. Öntsd a tésztát a kivajazott formába, és süsd 20-25 percig, amíg aranybarna nem lesz és a tűpróba tiszta marad. Hagyd teljesen kihűlni, majd vágd félbe. Kend meg az alsó felét tejszínhabbal, és terítsd rá a szeletelt epreket. Tedd rá a piskóta tetejét, és díszítsd tejszínhabbal és eperrel. ",
+        "elokeszitesi_ido": "15 perc",
+        "sutesi_ido": "20-25 perc",
+        "adagok_szama": "8 szelet"
+      },
+      {
+        "nev": "Nutellás Keksz",
+        "kep": "images/nutellaskeksz.jpeg",
+        "leiras": "Ezek a kekszek ropogósak kívül és lágyak belül, tele finom Nutellával. Egy édes kényeztetés, amit imádni fogsz!",
+        "hozzavalok": ["200 g Nutella", "100 g cukor", "1 tojás", "150 g liszt", "1 teáskanál sütőpor"],
+        "keszitesi_utmutato": "Melegítsd elő a sütőt 180°C-ra. Bélelj ki egy tepsit sütőpapírral. Egy tálban keverd össze a Nutellát, cukrot és tojást, amíg sima nem lesz. Add hozzá a lisztet és a sütőport, és keverd össze, amíg tésztává áll össze. Formázz golyókat a tésztából, majd lapítsd el őket a tepsiben. Süsd 10-12 percig, amíg a kekszek szélei ropogósak lesznek. Hagyd hűlni, majd tálald.",
+        "elokeszitesi_ido": "10 perc",
+        "sutesi_ido": "10-12 perc",
+        "adagok_szama": "24 keksz"
+      },
+      {
+        "nev": "Fahéjas Csiga",
+        "kep": "images/fahejascsiga.jpg",
+        "leiras": "Illatos és puha fahéjas csiga, amely tökéletes a hideg napokra. Frissen sült, melegen a legfinomabb!",
+        "hozzavalok": ["500 g liszt", "250 ml tej", "100 g cukor", "100 g vaj (olvasztott)", "2 tojás", "1 csomag élesztő", "2 evőkanál fahéj", "50 g barna cukor"],
+        "keszitesi_utmutato": "Melegítsd fel a tejet langyosra, majd keverd bele az élesztőt és a cukrot, hagyd felfutni 10 percig. Egy nagy tálban keverd össze a lisztet, olvasztott vajat és tojásokat, majd add hozzá az élesztős keveréket. Gyúrj belőle sima tésztát. Tedd a tésztát egy enyhén lisztezett felületre, és hagyd kelni 1 órán át, amíg duplájára nő. Nyújtsd ki a tésztát téglalap alakúra, szórd meg fahéjjal és barna cukorral, majd tekerd fel szorosan. Szeleteld fel a tekercset 2 cm vastag szeletekre, és helyezd őket kivajazott tepsibe. Süsd 180°C-on 20-25 percig, amíg aranybarnák nem lesznek. Hagyd hűlni, majd tálald.",
+        "elokeszitesi_ido": "20 perc + 1 óra kelesztés",
+        "sutesi_ido": "20-25 perc",
+        "adagok_szama": "12 csiga"
+      }
+    ]
+  }
+  

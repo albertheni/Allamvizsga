@@ -16,9 +16,25 @@
       justify-content: center;
       min-height: 100vh;
     }
+
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 40px;
+      font-weight: bold;
+      color: #7d4a13;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .back-arrow:hover {
+      color: #b88855;
+    }
     
     .container {
       max-width: 400px;
+      width: 100%;
       margin: 100px auto;
       padding: 20px;
       background-color: transparent;
@@ -40,6 +56,11 @@
       font-size: 20px;
     }
     
+    .input-container {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
     .container input[type="text"],
     .container input[type="password"] {
       width: 100%;
@@ -47,8 +68,20 @@
       border: none;
       border-radius: 4px;
       box-sizing: border-box;
-      margin-bottom: 16px;
       background-color: #dedcd9;
+      padding-right: 40px; /* Hely biztosítása az ikon számára */
+      color: #7d4a13;
+      font-size: 15px;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
     }
     
     .container input[type="submit"] {
@@ -69,17 +102,35 @@
   </style>
 </head>
 <body>
+  <a href="/" class="back-arrow">&#8592;</a>
   <div class="container">
-    <h1>Login</h1>
-    <form action="/login" method="post">  <!-- kuld egy postost, amit a controller kezel le -->
+    <h1>Bejelentkezés</h1>
+    <form action="/login" method="post">  <!-- küld egy postot, amit a controller kezel le -->
       <label for="email">E-mail:</label>
       <input type="text" id="email" name="email" required>
       
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <label for="password">Jelszó:</label>
+      <div class="input-container">
+        <input type="password" id="password" name="password" required>
+        <img src="images/hide.png" class="toggle-password" id="togglePassword" alt="Show/Hide Password">
+      </div>
       
-      <input type="submit" value="Login">
+      <input type="submit" value="Bejelentkezés">
     </form>
   </div>
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+
+      // Váltás az ikon között
+      if (type === 'password') {
+        this.src = 'images/hide.png';
+      } else {
+        this.src = 'images/view.png';
+      }
+    });
+  </script>
 </body>
 </html>

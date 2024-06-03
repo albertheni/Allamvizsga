@@ -15,6 +15,22 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
+      position: relative;
+    }
+
+    .back-arrow {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 40px; /* Növeli a nyíl méretét */
+      font-weight: bold; /* Vastagítja a nyilat */
+      color: #7d4a13;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    .back-arrow:hover {
+      color: #b88855;
     }
     
     .container {
@@ -41,6 +57,11 @@
       font-size: 20px;
     }
     
+    .input-container {
+      position: relative;
+      margin-bottom: 16px;
+    }
+    
     .container input[type="text"],
     .container input[type="password"],
     .container select {
@@ -49,11 +70,21 @@
       border: none;
       border-radius: 4px;
       box-sizing: border-box;
-      margin-bottom: 16px;
       background-color: #dedcd9;
+      padding-right: 40px; /* Hely biztosítása az ikon számára */
       font-family: "Times New Roman", Times, serif;
       color: #7d4a13;
       font-size: 15px;
+    }
+    
+    .toggle-password {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: pointer;
+      width: 24px;
+      height: 24px;
     }
     
     .container input[type="submit"] {
@@ -74,26 +105,44 @@
   </style>
 </head>
 <body>
+  <a href="/" class="back-arrow">&#8592;</a>
   <div class="container">
-    <h1>Registration</h1>
+    <h1>Regisztráció</h1>
     <form action="/register" method="post">
-      <label for="username">Username:</label>
+      <label for="username">Felhasználónév:</label>
       <input type="text" id="username" name="username" required>
       
       <label for="email">E-mail:</label>
       <input type="text" id="email" name="email" required>
       
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" required>
+      <label for="password">Jelszó:</label>
+      <div class="input-container">
+        <input type="password" id="password" name="password" required>
+        <img src="images/hide.png" class="toggle-password" id="togglePassword" alt="Show/Hide Password">
+      </div>
       
-      <label for="type">Type:</label>
+      <label for="type">Típus:</label>
       <select id="type" name="type">
         <option value="admin">Admin</option>
         <option value="user">User</option>
       </select>
       
-      <input type="submit" value="Registration">
+      <input type="submit" value="Regisztráció">
     </form>
   </div>
+  <script>
+    document.getElementById('togglePassword').addEventListener('click', function () {
+      const passwordField = document.getElementById('password');
+      const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordField.setAttribute('type', type);
+
+      // Váltás az ikon között
+      if (type === 'password') {
+        this.src = 'images/hide.png';
+      } else {
+        this.src = 'images/view.png';
+      }
+    });
+  </script>
 </body>
 </html>
