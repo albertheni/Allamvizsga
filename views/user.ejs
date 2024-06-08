@@ -168,9 +168,15 @@
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('recipes.json')
+      fetch('/recipe')
         .then(response => response.json())
         .then(data => {
+          // Ellenőrizzük, hogy az adat tömb-e
+          if (!Array.isArray(data)) {
+            console.error('Error: Invalid response format', data);
+            return;
+          }
+
           const recipeContainer = document.getElementById('recipeContainer');
           const modal = document.getElementById('recipeModal');
           const modalClose = document.getElementsByClassName('close')[0];
@@ -185,7 +191,7 @@
             }
           }
 
-          data.receptek.forEach(recipe => {
+          data.forEach(recipe => {
             const recipeCard = document.createElement('div');
             recipeCard.className = 'recipe-card';
 
@@ -211,7 +217,7 @@
 
               const modalIngredients = document.getElementById('modalIngredients');
               modalIngredients.innerHTML = '';
-              recipe.hozzavalok.forEach(ingredient => {
+              recipe.hozzavalok.split(", ").forEach(ingredient => {
                 const li = document.createElement('li');
                 li.textContent = ingredient;
                 modalIngredients.appendChild(li);
@@ -245,20 +251,25 @@
       const filter = input.value.toLowerCase();
       const recipeContainer = document.getElementById('recipeContainer');
       const recipeCards = recipeContainer.getElementsByClassName('recipe-card');
-
+    
       for (let i = 0; i < recipeCards.length; i++) {
         const h2 = recipeCards[i].getElementsByTagName('h2')[0];
-        const p = recipeCards[i].getElementsByTagName('p')[0];
         const textValue = h2.textContent || h2.innerText;
-        const descriptionValue = p.textContent || p.innerText;
-
-        if (textValue.toLowerCase().indexOf(filter) > -1 || descriptionValue.toLowerCase().indexOf(filter) > -1) {
+    
+        // Szavakra bontás
+        const words = textValue.toLowerCase().split(' ');
+    
+        // Ellenőrzés, hogy bármelyik szó kezdődik-e a keresett kifejezéssel
+        const match = words.some(word => word.startsWith(filter));
+    
+        if (match) {
           recipeCards[i].style.display = '';
         } else {
           recipeCards[i].style.display = 'none';
         }
       }
     }
+    
   </script>
 </body>
 </html>

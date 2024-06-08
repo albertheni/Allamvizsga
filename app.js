@@ -17,6 +17,7 @@ import home from "./routes/home.js";
 import search from "./routes/search.js";
 import user from "./routes/user.js";
 import admin from "./routes/admin.js";
+import recipe from "./routes/recipe.js"
 
 const __filename = fileURLToPath(import.meta.url);
 export const __dirname = path.dirname(__filename);
@@ -48,6 +49,7 @@ app.use('/register',register);
 app.use('/search',search);
 app.use('/user',user);
 app.use('/admin',admin);
+app.use('/recipe', recipe)
 
 // if none of the above match, catch 404 and forward to error handler
 app.use(undefinedPage);

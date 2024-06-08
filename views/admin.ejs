@@ -208,8 +208,6 @@
   <div id="recipeModal" class="modal">
     <div class="modal-content">
       <span class="close">&times;</span>
-      <button class="edit-button">Szerkesztés</button>
-      <button class="delete-button">Törlés</button>
       <h2 id="modalTitle"></h2>
       <img id="modalImage" src="" alt="">
       <p id="modalDescription"></p>
@@ -223,133 +221,305 @@
     </div>
   </div>
 
+  <!-- Új recept hozzáadása modal -->
+<div id="addRecipeModal" class="modal">
+  <div class="modal-content">
+      <span class="close close-add">&times;</span>
+      <h2>Új Recept Hozzáadása</h2>
+      <form id="addRecipeForm">
+          <input type="text" id="newRecipeName" placeholder="Recept neve" required><br>
+          <input type="text" id="imagePath" name="imagePath" placeholder="pl. images/recept.jpg" required><br>
+          <input type="text" id="newRecipeDescription" placeholder="Leírás" required><br>
+          <input type="text" id="newRecipeIngredients" placeholder="Hozzávalók (vesszővel elválasztva)" required><br>
+          <input type="text" id="newRecipeInstructions" placeholder="Elkészítési útmutató" required><br>
+          <input type="number" id="newRecipePrepTime" placeholder="Előkészítési idő (percben)" required><br>
+          <input type="number" id="newRecipeCookTime" placeholder="Sütési/Főzési idő (percben)" required><br>
+          <input type="number" id="newRecipeServings" placeholder="Adagok száma" required><br>
+          <button type="submit">Recept Hozzáadása</button>
+      </form>
+  </div>
+</div>
+
+
+<!-- Recept szerkesztése modal -->
+<div id="editRecipeModal" class="modal">
+  <div class="modal-content">
+      <span class="close close-edit">&times;</span>
+      <h2>Recept Szerkesztése</h2>
+      <form id="editRecipeForm">
+          <input type="hidden" id="editRecipeId">
+          <input type="text" id="editRecipeName" placeholder="Recept neve" required><br>
+          <input type="text" id="editImagePath" name="editImagePath" placeholder="pl. images/recept.jpg" required><br>
+          <input type="text" id="editRecipeDescription" placeholder="Leírás" required><br>
+          <input type="text" id="editRecipeIngredients" placeholder="Hozzávalók (vesszővel elválasztva)" required><br>
+          <input type="text" id="editRecipeInstructions" placeholder="Elkészítési útmutató" required><br>
+          <input type="number" id="editRecipePrepTime" placeholder="Előkészítési idő (percben)" required><br>
+          <input type="number" id="editRecipeCookTime" placeholder="Sütési/Főzési idő (percben)" required><br>
+          <input type="number" id="editRecipeServings" placeholder="Adagok száma" required><br>
+          <button type="submit">Recept Mentése</button>
+      </form>
+  </div>
+</div>
+
+
+
   <script>
+    // Adatok betöltése az adatbázisból
     document.addEventListener('DOMContentLoaded', function() {
-      fetch('recipes.json')
-        .then(response => response.json())
-        .then(data => {
-          const recipeContainer = document.getElementById('recipeContainer');
-          const modal = document.getElementById('recipeModal');
-          const modalClose = document.getElementsByClassName('close')[0];
-          const addButton = document.querySelector('.add-button');
+        fetch('/recipe')
+            .then(response => response.json())
+            .then(data => {
+                updateRecipeCards(data);
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Hiba a receptek betöltése során:', error);
+            });
+    });
 
-          modalClose.onclick = function() {
-            modal.style.display = 'none';
-          }
+    document.querySelector('.close').addEventListener('click', function() {
+      document.getElementById('recipeModal').style.display = 'none';
+    });
 
-          window.onclick = function(event) {
-            if (event.target == modal) {
-              modal.style.display = 'none';
-            }
-          }
+    function editRecipe(recipe) {
+      document.getElementById('editRecipeId').value = recipe.id;
+      document.getElementById('editRecipeName').value = recipe.nev;
+      document.getElementById('editImagePath').value = recipe.kep;
+      document.getElementById('editRecipeDescription').value = recipe.leiras;
+      document.getElementById('editRecipeIngredients').value = recipe.hozzavalok;
+      document.getElementById('editRecipeInstructions').value = recipe.keszitesi_utmutato;
+      document.getElementById('editRecipePrepTime').value = parseInt(recipe.elokeszitesi_ido);
+      document.getElementById('editRecipeCookTime').value = parseInt(recipe.sutesi_ido);
+      document.getElementById('editRecipeServings').value = recipe.adagok_szama;
+      document.getElementById('editRecipeModal').style.display = 'block';
+    }
+    
+    document.querySelector('.close-edit').addEventListener('click', function() {
+      document.getElementById('editRecipeModal').style.display = 'none';
+    });
 
-          data.receptek.forEach((recipe, index) => {
+    document.getElementById('editRecipeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      
+      const updatedRecipe = {
+        id: document.getElementById('editRecipeId').value,
+        nev: document.getElementById('editRecipeName').value,
+        kep: document.getElementById('editImagePath').value,
+        leiras: document.getElementById('editRecipeDescription').value,
+        hozzavalok: document.getElementById('editRecipeIngredients').value,
+        keszitesi_utmutato: document.getElementById('editRecipeInstructions').value,
+        elokeszitesi_ido: document.getElementById('editRecipePrepTime').value + ' perc',
+        sutesi_ido: document.getElementById('editRecipeCookTime').value + ' perc',
+        adagok_szama: document.getElementById('editRecipeServings').value
+      };
+    
+      fetch(`/recipe/${updatedRecipe.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(updatedRecipe)
+      })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error('Something went wrong on api server!');
+      })
+      .then(updatedRecipeFromServer => {
+        console.log(updatedRecipeFromServer);
+        document.getElementById('editRecipeModal').style.display = 'none';
+        // Frissítsük a recepteket a felületen
+        fetch('/recipe')
+            .then(response => response.json())
+            .then(data => {
+                updateRecipeCards(data);
+            })
+            .catch(error => {
+                console.error('Hiba a receptek betöltése során:', error);
+            });
+    })
+      .catch(error => {
+        console.error(error);
+      });
+    });
+    
+
+    let recipesData = [];
+    function updateRecipeCards(data) {
+        recipesData = data; // Helyileg tároljuk az adatokat
+        const recipeContainer = document.getElementById('recipeContainer');
+        recipeContainer.innerHTML = ''; // Kiürítjük a jelenlegi tartalmat
+    
+        data.forEach(recipe => {
             const recipeCard = document.createElement('div');
             recipeCard.className = 'recipe-card';
-
+    
             const recipeImage = document.createElement('img');
             recipeImage.src = recipe.kep;
             recipeImage.alt = recipe.nev;
-
+    
             const recipeTitle = document.createElement('h2');
             recipeTitle.textContent = recipe.nev;
-
+    
             const recipeDescription = document.createElement('p');
             recipeDescription.textContent = recipe.leiras;
-
+    
             const editButton = document.createElement('button');
             editButton.className = 'edit-button';
             editButton.textContent = 'Szerkesztés';
-
+            editButton.onclick = function(event) {
+              event.stopPropagation();
+              editRecipe(recipe);
+              console.log('Szerkesztés:', recipe.nev);
+            };
+    
             const deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button';
             deleteButton.textContent = 'Törlés';
+            deleteButton.onclick = function(event) {
+                event.stopPropagation();
+                // Törlés logika ide
+                if (confirm(`Biztosan törölni szeretnéd a(z) ${recipe.nev} receptet?`)) {
+                  fetch(`/recipe/${recipe.id}`, {
+                    method: 'DELETE',
+                  })
+                  .then(response => {
+                    if (response.ok) {
+                      recipeCard.remove();
+                      console.log('Recept törölve:', recipe.nev);
+                    } else {
+                      console.error('Hiba a recept törlése során:', response.statusText);
+                    }
+                  })
+                  .catch(error => {
+                    console.error('Hiba a recept törlése során:', error);
+                  });
+                }
+            };
 
             recipeCard.appendChild(recipeImage);
             recipeCard.appendChild(recipeTitle);
             recipeCard.appendChild(recipeDescription);
             recipeCard.appendChild(editButton);
             recipeCard.appendChild(deleteButton);
-
-            editButton.onclick = function(event) {
-              event.stopPropagation();
-              // Szerkesztés logika ide
-              console.log('Szerkesztés:', recipe.nev);
-            };
-
-            deleteButton.onclick = function(event) {
-              event.stopPropagation();
-              // Törlés logika ide
-              console.log('Törlés:', recipe.nev);
-            };
-
+    
             recipeCard.onclick = function(event) {
-              if (event.target !== editButton && event.target !== deleteButton) {
-                showRecipeModal(recipe);
-              }
+                if (event.target !== editButton && event.target !== deleteButton) {
+                    showRecipeModal(recipe);
+                }
             };
-
+    
             recipeContainer.appendChild(recipeCard);
-          });
+        });
+    }
 
-          addButton.onclick = function() {
-            console.log('Új recept hozzáadása');
-            // Új recept hozzáadása logika ide
-          };
-        })
-        .catch(error => console.error('Error fetching the recipes:', error));
-
-      function showRecipeModal(recipe) {
+    function showRecipeModal(recipe) {
         document.getElementById('modalTitle').textContent = recipe.nev;
         document.getElementById('modalImage').src = recipe.kep;
         document.getElementById('modalImage').alt = recipe.nev;
         document.getElementById('modalDescription').textContent = recipe.leiras;
-
+    
         const modalIngredients = document.getElementById('modalIngredients');
         modalIngredients.innerHTML = '';
-        recipe.hozzavalok.forEach(ingredient => {
-          const li = document.createElement('li');
-          li.textContent = ingredient;
-          modalIngredients.appendChild(li);
+        recipe.hozzavalok.split(", ").forEach(ingredient => {
+            const li = document.createElement('li');
+            li.textContent = ingredient;
+            modalIngredients.appendChild(li);
         });
-
+    
         const modalInstructions = document.getElementById('modalInstructions');
         modalInstructions.innerHTML = '';
         recipe.keszitesi_utmutato.split('. ').forEach(step => {
-          if (step.trim().length > 0) {
-            const li = document.createElement('li');
-            li.textContent = step.trim();
-            modalInstructions.appendChild(li);
-          }
+            if (step.trim().length > 0) {
+                const li = document.createElement('li');
+                li.textContent = step.trim();
+                modalInstructions.appendChild(li);
+            }
         });
-
+    
         document.getElementById('modalPrepTime').textContent = `Előkészítési idő: ${recipe.elokeszitesi_ido}`;
         document.getElementById('modalCookTime').textContent = `Sütési idő: ${recipe.sutesi_ido}`;
         document.getElementById('modalServings').textContent = `Adagok száma: ${recipe.adagok_szama}`;
+    
+        document.getElementById('recipeModal').style.display = 'block';
+    }
 
-        modal.style.display = 'block';
-      }
+    document.querySelector('.add-button').addEventListener('click', function() {
+      document.getElementById('addRecipeModal').style.display = 'block';
+  });
+  
+  document.querySelector('.close-add').addEventListener('click', function() {
+      document.getElementById('addRecipeModal').style.display = 'none';
+  });
+  
+  document.getElementById('addRecipeForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const newRecipe = {
+          nev: document.getElementById('newRecipeName').value,
+          kep: document.getElementById('imagePath').value,
+          leiras: document.getElementById('newRecipeDescription').value,
+          hozzavalok: document.getElementById('newRecipeIngredients').value,
+          keszitesi_utmutato: document.getElementById('newRecipeInstructions').value,
+          elokeszitesi_ido: document.getElementById('newRecipePrepTime').value +' perc',
+          sutesi_ido: document.getElementById('newRecipeCookTime').value +' perc',
+          adagok_szama: document.getElementById('newRecipeServings').value
+      };
+      fetch('/recipe', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(newRecipe)
+      })
+      .then(response => {
+          if (response.ok) {
+              return response.json();
+          }
+          throw new Error('Something went wrong on api server!');
+      })
+      .then(addedRecipe => {
+        console.log(addedRecipe);
+        document.getElementById('addRecipeModal').style.display = 'none';
+        // Frissítsük a recepteket a felületen
+        fetch('/recipe')
+            .then(response => response.json())
+            .then(data => {
+                updateRecipeCards(data);
+            })
+            .catch(error => {
+                console.error('Hiba a receptek betöltése során:', error);
+            });
+    })
+    .catch(error => {
+        console.error(error);
     });
+  });
 
-    function searchRecipes() {
-      const input = document.getElementById('searchInput');
-      const filter = input.value.toLowerCase();
-      const recipeContainer = document.getElementById('recipeContainer');
-      const recipeCards = recipeContainer.getElementsByClassName('recipe-card');
-
-      for (let i = 0; i < recipeCards.length; i++) {
-        const h2 = recipeCards[i].getElementsByTagName('h2')[0];
-        const p = recipeCards[i].getElementsByTagName('p')[0];
-        const textValue = h2.textContent || h2.innerText;
-        const descriptionValue = p.textContent || p.innerText;
-
-        if (textValue.toLowerCase().indexOf(filter) > -1 || descriptionValue.toLowerCase().indexOf(filter) > -1) {
-          recipeCards[i].style.display = '';
-        } else {
-          recipeCards[i].style.display = 'none';
-        }
+  function searchRecipes() {
+    const input = document.getElementById('searchInput');
+    const filter = input.value.toLowerCase();
+    const recipeContainer = document.getElementById('recipeContainer');
+    const recipeCards = recipeContainer.getElementsByClassName('recipe-card');
+  
+    for (let i = 0; i < recipeCards.length; i++) {
+      const h2 = recipeCards[i].getElementsByTagName('h2')[0];
+      const textValue = h2.textContent || h2.innerText;
+  
+      // Szavakra bontás
+      const words = textValue.toLowerCase().split(' ');
+  
+      // Ellenőrzés, hogy bármelyik szó kezdődik-e a keresett kifejezéssel
+      const match = words.some(word => word.startsWith(filter));
+  
+      if (match) {
+        recipeCards[i].style.display = '';
+      } else {
+        recipeCards[i].style.display = 'none';
       }
     }
+  }
+  
   </script>
 </body>
 </html>
