@@ -1,0 +1,41 @@
+<div class="recipes-container">
+  <% if (user) { %>
+    <a href="/user/logout" class="btn logout-btn">Kijelentkezés</a>
+  <% } %>
+
+  <h1>Összes recept</h1>
+
+  <form method="GET" action="/recipes">
+    <label>Keresés:</label>
+    <input type="text" name="search" value="<%= searchQuery || '' %>">
+    <button type="submit" class="search_btn">Keresés</button>
+  </form>
+
+  <% if (recipes && recipes.length > 0) { %>
+    <% recipes.forEach(recipe => { %>
+      <div class="recipe-card">
+        <% if (recipe.kep) { %>
+            <img src="/images/<%= recipe.kep %>" alt="<%= recipe.nev %>">
+        <% } else { %>
+            <div class="no-image">Nincs kép</div>
+        <% } %>
+        <div>
+            <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.nev %></a></h3>
+            <p><%= recipe.leiras.substring(0, 100) %>...</p>
+        </div>
+        <% if (user && user.type === 'admin') { %>
+            <div class="recipe-actions">
+            <a href="/recipes/edit/<%= recipe.id %>" class="btn btn-edit">Szerkesztés</a>
+            <a href="/recipes/delete/<%= recipe.id %>" class="btn btn-delete" onclick="return confirm('Biztosan törölni szeretnéd ezt a receptet?');">Törlés</a>
+    </div>
+  <% } %>
+</div>
+    <% }) %>
+  <% } else { %>
+    <p>Nincs még recept az adatbázisban.</p>
+  <% } %>
+
+  <% if (user && user.type === 'admin') { %>
+    <a href="/recipes/add" class="add-recipe-btn">+</a>
+  <% } %>
+</div>

@@ -1,0 +1,18 @@
+
+<div>
+  <% if (user) { %>
+    <p><a href="/user/logout">Kijelentkezés</a></p>
+  <% } %>
+  <h1>Felhasználói felület</h1>
+  <% if (recipes && recipes.length > 0) { %>
+    <% recipes.forEach(recipe => { %>
+      <div>
+        <h3><%= recipe.name %></h3>
+        <p><strong>Hozzávalók:</strong> <%= recipe.ingredients %></p>
+        <p><strong>Elkészítési útmutató:</strong> <%= recipe.description %></p>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <p>Még nem adtál hozzá recepteket.</p>
+  <% } %>
+</div>

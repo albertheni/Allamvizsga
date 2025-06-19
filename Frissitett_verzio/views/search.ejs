@@ -1,0 +1,22 @@
+
+<div>
+  <h1>Keresés</h1>
+  <form method="GET" action="/recipes/search">
+    <label>Kulcsszó:</label>
+    <input type="text" name="keyword" value="<%= keyword || '' %>"><br>
+    <button type="submit">Keresés</button>
+  </form>
+  <% if (recipes && recipes.length > 0) { %>
+    <h2>Találatok:</h2>
+    <% recipes.forEach(recipe => { %>
+      <div>
+        <h3><a href="/recipes/<%= recipe.id %>"><%= recipe.nev %></a></h3>
+        <p><strong>Kategória:</strong> <%= recipe.category %></p>
+        <p><strong>Hozzávalók:</strong> <%= recipe.ingredients %></p>
+        <p><strong>Elkészítési útmutató:</strong> <%= recipe.description %></p>
+      </div>
+    <% }) %>
+  <% } else if (keyword) { %>
+    <p>Nincs találat a következő kulcsszóra: <%= keyword %></p>
+  <% } %>
+</div>

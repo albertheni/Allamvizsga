@@ -1,0 +1,380 @@
+/* Alap stílusok */
+
+h1{
+  color: #7d4a13;
+}
+
+label{
+  color: #7d4a13;
+  font-size: 20px;
+}
+
+p{ color: #7d4a13;}
+a{ color: #5e401f;}
+
+body {
+  font-family: "Times New Roman", Times, serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("/images/background.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+}
+
+
+header nav {
+  background-color: rgba(125, 74, 19, 0.9); /* Sötétbarna áttetsző */
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+}
+
+header nav a {
+  color: #fbead8; /* Világos krémszín */
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 18px;
+  margin: 0 15px;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #7d4a13; /* Sötétbarna */
+  color: #fbead8; /* Világos krémszín */
+  width: 100%;
+  margin-top: auto;
+}
+
+/* Home oldal */
+.home-container {
+  text-align: center;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+}
+
+.home-container h1 {
+  color: #7d4a13;
+  font-size: 36px;
+  margin-bottom: 10px;
+}
+
+.home-container p {
+  color: #7d4a13;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.home-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+
+/* Login és Register oldal */
+.login-container {
+  max-width: 400px;
+  background-color: rgba(255, 255, 255, 0.9); /* Félig áttetsző fehér */
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px auto;
+}
+
+.login-container h1 {
+  color: #7d4a13; /* Sötétbarna */
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+
+.form-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #7d4a13;
+  font-size: 16px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form-group select {
+  appearance: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #7d4a13; /* Sötétbarna */
+  color: #fbead8; /* Világos krémszín */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 18px;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #b88855; /* Világosabb barna hover effekt */
+}
+
+.error {
+  color: #dc3545; /* Piros hibaüzenet */
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.link-text {
+  color: #7d4a13;
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.link-text a {
+  color: #b88855;
+  text-decoration: underline;
+}
+
+.link-text a:hover {
+  color: #7d4a13;
+}
+
+/* Recept lista stílusok */
+.recipes-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+}
+
+.recipe-card {
+  background-color: #fbead8; /* Világos krémszín */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.recipe-card img {
+  max-width: 150px;
+  border-radius: 8px;
+}
+
+.recipe-card h3 {
+  color: #7d4a13; /* Sötétbarna */
+  margin: 0 0 10px 0;
+}
+
+.recipe-card p {
+  color: #333;
+  margin: 5px 0;
+}
+
+.recipe-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-edit {
+  background-color: #28a745; /* Zöld a szerkesztéshez */
+}
+
+.btn-edit:hover {
+  background-color: #218838;
+}
+
+.btn-delete {
+  background-color: #dc3545; /* Piros a törléshez */
+}
+
+.btn-delete:hover {
+  background-color: #c82333;
+}
+
+.logout-btn {
+  position: absolute;
+  top: 50px; /* A nyíl gomb (top: 10px) alá, pl. 40px eltéréssel */
+  left: 10px;
+  padding: 8px 16px; /* Kompaktabb padding */
+  background-color: #7d4a13;
+  color: #fbead8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 15px; /* Kisebb betűméret a kompaktabb megjelenéshez */
+  max-width: 120px; /* Korlátozza a gomb szélességét */
+  text-align: center; /* Szöveg középre igazítása */
+  white-space: nowrap; /* Megakadályozza a szöveg tördelését */
+  overflow: hidden; /* Ha a szöveg túl hosszú, elvágja */
+  text-decoration: none;
+}
+
+.search_btn {
+  padding: 8px 16px;
+  background-color: #7d4a13;
+  color: #fbead8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 10px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+
+.add-recipe-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  background-color: #7d4a13;
+  color: #fbead8;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  text-decoration: none;
+}
+
+.add-recipe-btn:hover {
+  background-color: #b88855;
+}
+
+.no-image {
+  width: 150px;
+  height: 150px;
+  background-color: #ddd;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Új recept hozzáadása oldal */
+.edit_add-container {
+  max-width: 400px;
+  background-color: #ffffff; /* Teljesen fehér háttér */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin: 20px auto;
+}
+
+.edit_add-container h1 {
+  color: #7d4a13; /* Sötétbarna */
+  font-size: 32px;
+  margin-bottom: 15px;
+}
+
+.recipe-form-section {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.recipe-form-section label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #7d4a13; /* Sötétbarna */
+  font-size: 16px;
+  transition: color 0.3s ease;
+}
+
+.recipe-form-section label:hover {
+  color: #b88855; /* Világosabb barna hover effekt */
+}
+
+.recipe-form-section input,
+.recipe-form-section textarea,
+.recipe-form-section input[type="file"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease;
+}
+
+.recipe-form-section input:focus,
+.recipe-form-section textarea:focus,
+.recipe-form-section input[type="file"]:focus {
+  border-color: #b88855; /* Világosabb barna kiemelés */
+  outline: none;
+}
+
+.recipe-form-section.button-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.recipe-detail {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  color: #7d4a13;
+}
+
+.recipe-detail img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.back-button {
+  position: fixed;
+  top: 10px;
+  left: 10px;
+  padding: 8px 16px;
+  background-color: #7d4a13;
+  color: #fbead8;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 1000;
+}
+.back-button:hover {
+  background-color: #b88855; /* Világosabb barna hover effekt */
+}

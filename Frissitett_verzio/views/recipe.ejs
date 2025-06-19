@@ -1,0 +1,25 @@
+<div class="recipe-detail">
+  <h1><%= recipe.nev %></h1>
+  <% if (recipe.kep) { %>
+    <img src="/images/<%= recipe.kep %>" alt="<%= recipe.nev %>" style="max-width: 300px; border-radius: 8px;">
+  <% } else { %>
+    <div class="no-image">Nincs kép</div>
+  <% } %>
+  <p><strong>Leírás:</strong> <%= recipe.leiras %></p>
+  <p><strong>Hozzávalók:</strong> <%= recipe.hozzavalok %></p>
+  <p><strong>Készítési útmutató:</strong> <%= recipe.keszitesi_utmutato %></p>
+  <% if (recipe.elokeszitesi_ido) { %>
+    <p><strong>Előkészítési idő:</strong> <%= recipe.elokeszitesi_ido %> perc</p>
+  <% } %>
+  <% if (recipe.sutesi_ido) { %>
+    <p><strong>Sütési idő:</strong> <%= recipe.sutesi_ido %> perc</p>
+  <% } %>
+  <% if (recipe.adagok_szama) { %>
+    <p><strong>Adagok száma:</strong> <%= recipe.adagok_szama %></p>
+  <% } %>
+  <a href="/recipes" class="btn">Vissza a receptekhez</a>
+  <% if (user && user.type === 'admin') { %>
+    <a href="/recipes/edit/<%= recipe.id %>" class="btn btn-edit">Szerkesztés</a>
+    <a href="/recipes/delete/<%= recipe.id %>" class="btn btn-delete" onclick="return confirm('Biztosan törölni szeretnéd ezt a receptet?');">Törlés</a>
+  <% } %>
+</div>
