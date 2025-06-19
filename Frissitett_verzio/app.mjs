@@ -10,6 +10,9 @@ import { router as indexRouter } from "./routes/index.mjs";
 import { router as userRouter } from "./routes/user.mjs";
 import { router as recipesRouter } from "./routes/recipes.mjs";
 import multer from "multer";
+import { config } from 'dotenv';
+import './db/dbinit.mjs';
+config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

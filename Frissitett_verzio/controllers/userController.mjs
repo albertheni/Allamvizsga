@@ -1,5 +1,5 @@
 import { mainMenu } from '../helpers/menus.mjs';
-import db from '../db/mysqlconn.mjs'; // Frissített import
+import db from '../db/dbconn.mjs'; // Frissített import
 import Joi from 'joi';
 import { createHash } from 'crypto';
 
@@ -56,7 +56,6 @@ export const register = (req, res) => {
 };
 
 export const postRegister = async (req, res, next) => {
-  // console.log('req.body:', req.body); // Debug log
   const userData = req.body;
   const result = checkRegister(userData);
   if (result.error) {
@@ -69,7 +68,12 @@ export const postRegister = async (req, res, next) => {
   }
 
   try {
-    const [rows] = await db.execute('SELECT email FROM user2 WHERE email = ?', [userData.email]); // Frissítve user2-re
+    let rows;
+    if (process.env.DB_TYPE === 'sqlite') {
+      [rows] = await db.execute('SELECT email FROM user2 WHERE email = ?', [userData.email]);
+    } else if (process.env.DB_TYPE === 'mysql') {
+      [rows] = await db.execute('SELECT email FROM user2 WHERE email = ?', [userData.email]);
+    }
     if (rows.length > 0) {
       return res.render('message', {
         menu: mainMenu,
@@ -79,12 +83,18 @@ export const postRegister = async (req, res, next) => {
     }
 
     const hash = createHash('sha1').update(userData.password).digest('hex');
-    await db.execute(
-      'INSERT INTO user2 (userName, email, password, type, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)', // Frissítve user2-re
-      [userData.userName, userData.email, hash, userData.type, new Date().toISOString(), new Date().toISOString()]
-    );
-    
-    // Automatikus bejelentkezés a regisztráció után
+    if (process.env.DB_TYPE === 'sqlite') {
+      await db.execute(
+        'INSERT INTO user2 (userName, email, password, type, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)',
+        [userData.userName, userData.email, hash, userData.type, new Date().toISOString(), new Date().toISOString()]
+      );
+    } else if (process.env.DB_TYPE === 'mysql') {
+      await db.execute(
+        'INSERT INTO user2 (userName, email, password, type, createdAt, updatedAt) VALUES (?, ?, ?, ?, ?, ?)',
+        [userData.userName, userData.email, hash, userData.type, new Date().toISOString(), new Date().toISOString()]
+      );
+    }
+
     const [newUserRows] = await db.execute(
       'SELECT id, email, userName AS name, type FROM user2 WHERE email = ? AND password = ?',
       [userData.email, hash]
@@ -102,7 +112,6 @@ export const postRegister = async (req, res, next) => {
       });
     });
 
-    // Átirányítás a főoldalra (mint a bejelentkezés után)
     res.redirect('/recipes');
   } catch (err) {
     next(err);
@@ -136,7 +145,12 @@ export const postLogin = async (req, res, next) => {
 
   const hash = createHash('sha1').update(userData.password).digest('hex');
   try {
-    const [rows] = await db.execute('SELECT id, email, userName AS name, type FROM user2 WHERE email = ? AND password = ?', [userData.email, hash]); // Frissítve user2-re
+    let rows;
+    if (process.env.DB_TYPE === 'sqlite') {
+      [rows] = await db.execute('SELECT id, email, userName AS name, type FROM user2 WHERE email = ? AND password = ?', [userData.email, hash]);
+    } else if (process.env.DB_TYPE === 'mysql') {
+      [rows] = await db.execute('SELECT id, email, userName AS name, type FROM user2 WHERE email = ? AND password = ?', [userData.email, hash]);
+    }
     if (rows.length === 0) {
       return res.render('message', {
         menu: mainMenu,
