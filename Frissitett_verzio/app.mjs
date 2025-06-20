@@ -3,6 +3,7 @@ import expressLayouts from "express-ejs-layouts";
 import httpStatus from "http-status-codes";
 import morgan from "morgan";
 import session from "express-session";
+import pug from "pug"; // Pug importálása
 import { mainMenu } from "./helpers/menus.mjs";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
@@ -19,11 +20,23 @@ const __dirname = dirname(__filename);
 
 const app = express();
 
+// Sablonmotor kiválasztása környezeti változó alapján
+const TEMPLATE_ENGINE = process.env.TEMPLATE_ENGINE || 'ejs'; // Alapértelmezett: EJS
+const VIEWS_DIR = TEMPLATE_ENGINE === 'pug' ? join(__dirname, 'views_pug') : join(__dirname, 'views');
+
 app.use(morgan("dev"));
-app.set("view engine", "ejs");
-app.set("views", join(__dirname, "views"));
-app.use(expressLayouts);
-app.set("layout", "layouts/layout");
+
+// Sablonmotor és nézetek mappa beállítása
+app.set("view engine", TEMPLATE_ENGINE);
+app.set("views", VIEWS_DIR);
+app.engine("pug", pug.__express); // Pug motor explicit regisztrálása
+
+// EJS layout használata, csak ha EJS a sablonmotor
+if (TEMPLATE_ENGINE === 'ejs') {
+  app.use(expressLayouts);
+  app.set("layout", "layouts/layout");
+}
+
 app.set('view cache', false);
 
 // Middleware a form adatokhoz
@@ -39,6 +52,7 @@ app.use(session({
 
 app.use((req, res, next) => { res.locals.path = req.path; next(); });
 
+// Statikus fájlok kiszolgálása
 app.use("/css", express.static(join(__dirname, "assets/css")));
 app.use("/js", express.static(join(__dirname, "assets/js")));
 app.use("/images", express.static(join(__dirname, "assets/images")));
@@ -53,7 +67,7 @@ const storage = multer.diskStorage({
   },
 });
 const upload = multer({ storage: storage });
-app.use('/recipes/edit/:id', upload.single('kep')); // Alkalmazd a szerkesztési útvonalra is
+app.use('/recipes/edit/:id', upload.single('kep')); // Alkalmazd a szerkesztési útvonalra
 // Middleware a szöveges mezők és fájl feltöltés kombinálására
 app.use('/recipes/add', upload.single('kep'), (req, res, next) => {
   // A multer már feldolgozta a fájlt, a szöveges mezők a req.body-ban vannak

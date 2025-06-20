@@ -1,0 +1,33 @@
+extends layout.pug
+
+block content
+  .edit_add-container
+    h1 Új recept hozzáadása
+    form(action="/recipes/add" method="POST" enctype="multipart/form-data")
+      .recipe-form-section
+        label(for="nev") Név:
+        input(type="text" id="nev" name="nev" required)
+      .recipe-form-section
+        label(for="kep") Kép feltöltése:
+        input(type="file" id="kep" name="kep" accept="image/*")
+      .recipe-form-section
+        label(for="leiras") Leírás:
+        textarea(id="leiras" name="leiras" required)
+      .recipe-form-section
+        label(for="hozzavalok") Hozzávalók:
+        textarea(id="hozzavalok" name="hozzavalok" required)
+      .recipe-form-section
+        label(for="keszitesi_utmutato") Készítési útmutató:
+        textarea(id="keszitesi_utmutato" name="keszitesi_utmutato" required)
+      .recipe-form-section
+        label(for="elokeszitesi_ido") Előkészítési idő:
+        input(type="text" id="elokeszitesi_ido" name="elokeszitesi_ido")
+      .recipe-form-section
+        label(for="sutesi_ido") Sütési idő:
+        input(type="text" id="sutesi_ido" name="sutesi_ido")
+      .recipe-form-section
+        label(for="adagok_szama") Adagok száma:
+        input(type="text" id="adagok_szama" name="adagok_szama")
+      .recipe-form-section.button-group
+        button(type="submit").btn Recept mentése
+        a(href="/recipes").btn Mégse

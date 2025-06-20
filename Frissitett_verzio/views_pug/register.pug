@@ -1,0 +1,28 @@
+extends layout.pug
+
+block content
+  .login-container
+    h1 Regisztráció
+    if error
+      p.error #{error}
+    form(action="/user/register" method="POST")
+      .form-group
+        label(for="userName") Felhasználónév:
+        input(type="text" id="userName" name="userName" value=userData.userName required)
+      .form-group
+        label(for="email") Email:
+        input(type="email" id="email" name="email" value=userData.email required)
+      .form-group
+        label(for="password") Jelszó:
+        input(type="password" id="password" name="password" required)
+      .form-group
+        label(for="password1") Jelszó újra:
+        input(type="password" id="password1" name="password1" required)
+      .form-group
+        label(for="type") Típus
+        select(id="type" name="type" required)
+          option(value="user" selected=userData.type === 'user') Felhasználó
+          option(value="admin" selected=userData.type === 'admin') Admin
+      button(type="submit").btn Regisztráció
+    p Már van fiókod? 
+      a(href="/user/login") Jelentkezz be itt!

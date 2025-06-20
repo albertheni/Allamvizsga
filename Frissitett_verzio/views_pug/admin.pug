@@ -1,0 +1,45 @@
+extends layout.pug
+
+block content
+  h1 Admin felület
+  h2 Új recept felvétele
+  form(method="POST" action="/recipes/add" enctype="multipart/form-data")
+    div
+      label(for="nev") Név:
+      input(type="text" id="nev" name="nev" required)
+    div
+      label(for="kep") Kép (fájl feltöltése):
+      input(type="file" id="kep" name="kep" accept="image/*")
+    div
+      label(for="leiras") Leírás:
+      textarea(id="leiras" name="leiras" required)
+    div
+      label(for="hozzavalok") Hozzávalók:
+      textarea(id="hozzavalok" name="hozzavalok" required)
+    div
+      label(for="keszitesi_utmutato") Készítési útmutató:
+      textarea(id="keszitesi_utmutato" name="keszitesi_utmutato" required)
+    div
+      label(for="elokeszitesi_ido") Előkészítési idő (perc):
+      input(type="number" id="elokeszitesi_ido" name="elokeszitesi_ido" required)
+    div
+      label(for="sutesi_ido") Sütési idő (perc):
+      input(type="number" id="sutesi_ido" name="sutesi_ido" required)
+    div
+      label(for="adagok_szama") Adagok száma:
+      input(type="number" id="adagok_szama" name="adagok_szama" required)
+    button(type="submit") Recept mentése
+  h2 Receptek szerkesztése
+  if recipes && recipes.length > 0
+    each recipe in recipes
+      div
+        h3 #{recipe.nev}
+        p
+          strong Leírás: 
+          | #{recipe.leiras}
+        p
+          strong Hozzávalók: 
+          | #{recipe.hozzavalok}
+        a(href=`/recipes/edit/${recipe.id}`) Szerkesztés
+  else
+    p Nincs még recept az adatbázisban.

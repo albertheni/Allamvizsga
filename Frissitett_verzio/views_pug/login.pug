@@ -1,0 +1,17 @@
+extends layout.pug
+
+block content
+  .login-container
+    h1 Bejelentkezés
+    if error
+      p.error #{error}
+    form(action="/user/login" method="POST")
+      .form-group
+        label(for="email") Email:
+        input(type="email" id="email" name="email" value=userData.email required)
+      .form-group
+        label(for="password") Jelszó:
+        input(type="password" id="password" name="password" required)
+      button(type="submit").btn Bejelentkezés
+    p Nincs még fiókod? 
+      a(href="/user/register") Regisztrálj itt!

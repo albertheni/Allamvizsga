@@ -1,0 +1,28 @@
+extends layout.pug
+
+block content
+  if user
+    a(href="/user/logout").logout-btn Kijelentkezés
+  h1 Összes recept
+  form(method="GET" action="/recipes")
+    label Keresés:
+    input(type="text" name="search" value=searchQuery || '')
+    button(type="submit").search_btn Keresés
+  if recipes && recipes.length > 0
+    each recipe in recipes
+      .recipe-card
+        if recipe.kep
+          img(src=`/images/${recipe.kep}` alt="Recept kép")
+        else
+          .no-image Nincs kép
+        div
+          a(href=`/recipes/${recipe.id}`) #{recipe.nev}
+          p #{recipe.leiras}
+          if user && user.type === 'admin'
+            .recipe-actions
+                a(href=`/recipes/edit/${recipe.id}`).btn.btn-edit Szerkesztés
+                a(href=`/recipes/delete/${recipe.id}`).btn.btn-delete Törlés
+  else
+    p Nincs még recept az adatbázisban.
+  if user && user.type === 'admin'
+    a(href="/recipes/add").add-recipe-btn +

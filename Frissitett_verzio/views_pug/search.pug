@@ -1,0 +1,26 @@
+extends layout.pug
+
+block content
+  div
+    h1 Keresés
+    form(method="GET" action="/recipes/search")
+      label Kulcsszó:
+      input(type="text" name="keyword" value=keyword || '')
+      button(type="submit") Keresés
+    if recipes && recipes.length > 0
+      h2 Találatok:
+      each recipe in recipes
+        div
+          h3
+            a(href=`/recipes/${recipe.id}`) #{recipe.nev}
+          p
+            strong Kategória: 
+            | #{recipe.category}
+          p
+            strong Hozzávalók: 
+            | #{recipe.hozzavalok}
+          p
+            strong Elkészítési útmutató: 
+            | #{recipe.leiras}
+    else if keyword
+      p Nincs találat a következő kulcsszóra: #{keyword}

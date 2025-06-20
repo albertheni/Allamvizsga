@@ -1,0 +1,34 @@
+extends layout.pug
+
+block content
+  .recipe-detail
+    if recipe.kep
+      img(src=`/images/${recipe.kep}` alt="Recept kép")
+    else
+      .no-image Nincs kép
+    h1 #{recipe.nev}
+    p
+      strong Leírás: 
+      | #{recipe.leiras}
+    p
+      strong Hozzávalók: 
+      | #{recipe.hozzavalok}
+    p
+      strong Készítési útmutató: 
+      | #{recipe.keszitesi_utmutato}
+    if recipe.elokeszitesi_ido
+      p
+        strong Előkészítési idő: 
+        | #{recipe.elokeszitesi_ido} perc
+    if recipe.sutesi_ido
+      p
+        strong Sütési idő: 
+        | #{recipe.sutesi_ido} perc
+    if recipe.adagok_szama
+      p
+        strong Adagok száma: 
+        | #{recipe.adagok_szama}
+    a(href="/recipes") Vissza a receptekhez
+    if user && user.type === 'admin'
+      a(href=`/recipes/edit/${recipe.id}`).btn.btn-edit Szerkesztés
+      a(href=`/recipes/delete/${recipe.id}`).btn.btn-delete Törlés
