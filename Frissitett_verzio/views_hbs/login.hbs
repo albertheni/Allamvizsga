@@ -1,0 +1,18 @@
+<div class="login-container">
+  <h1>Bejelentkezés</h1>
+  {{#if error}}
+    <p class="error">{{error}}</p>
+  {{/if}}
+  <form action="/user/login" method="POST">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" value="{{userData.email}}" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Jelszó:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn">Bejelentkezés</button>
+  </form>
+  <p>Nincs még fiókod? <a href="/user/register">Regisztrálj itt!</a></p>
+</div>

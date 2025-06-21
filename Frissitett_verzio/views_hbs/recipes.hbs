@@ -1,0 +1,39 @@
+{{#if user}}
+       <a href="/user/logout" class="logout-btn">Kijelentkezés</a>
+     {{/if}}
+     <h1>Összes recept</h1>
+     <div class="search-container">
+       <form method="GET" action="/recipes">
+         <label for="search-input">Keresés:</label>
+         <input type="text" id="search-input" name="search" value="{{searchQuery}}">
+         <button type="submit" class="search_btn">Keresés</button>
+       </form>
+     </div>
+     <div class="recipes-container">
+       {{#if recipes}}
+         {{#each recipes}}
+           <div class="recipe-card">
+             {{#if kep}}
+               <img src="/images/{{kep}}" alt="Recept kép">
+             {{else}}
+               <div class="no-image">Nincs kép</div>
+             {{/if}}
+             <div class="recipe-content">
+               <h3><a href="/recipes/{{id}}">{{nev}}</a></h3>
+               <p>{{leiras}}</p>
+               {{#if ../isAdmin}}
+                 <div class="recipe-actions">
+                   <a href="/recipes/edit/{{id}}" class="btn btn-edit">Szerkesztés</a>
+                   <a href="/recipes/delete/{{id}}" class="btn btn-delete">Törlés</a>
+                 </div>
+               {{/if}}
+             </div>
+           </div>
+         {{/each}}
+       {{else}}
+         <p>Nincs még recept az adatbázisban.</p>
+       {{/if}}
+     </div>
+     {{#if isAdmin}}
+       <a href="/recipes/add" class="add-recipe-btn">+</a>
+     {{/if}}

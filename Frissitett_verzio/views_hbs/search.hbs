@@ -1,0 +1,24 @@
+<div>
+  <h1>Keresés</h1>
+  <form method="GET" action="/recipes/search">
+    <label>Kulcsszó:</label>
+    <input type="text" name="keyword" value="{{keyword}}">
+    <br>
+    <button type="submit">Keresés</button>
+  </form>
+  {{#if recipes}}
+    <h2>Találatok:</h2>
+    {{#each recipes}}
+      <div>
+        <h3><a href="/recipes/{{id}}">{{nev}}</a></h3>
+        <p><strong>Kategória:</strong> {{category}}</p>
+        <p><strong>Hozzávalók:</strong> {{ingredients}}</p>
+        <p><strong>Elkészítési útmutató:</strong> {{description}}</p>
+      </div>
+    {{/each}}
+  {{else}}
+    {{#if keyword}}
+      <p>Nincs találat a következő kulcsszóra: {{keyword}}</p>
+    {{/if}}
+  {{/if}}
+</div>

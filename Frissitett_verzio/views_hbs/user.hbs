@@ -1,0 +1,17 @@
+<div>
+  {{#if user}}
+    <p><a href="/user/logout">Kijelentkezés</a></p>
+  {{/if}}
+  <h1>Felhasználói felület</h1>
+  {{#if recipes}}
+    {{#each recipes}}
+      <div>
+        <h3>{{name}}</h3>
+        <p><strong>Hozzávalók:</strong> {{ingredients}}</p>
+        <p><strong>Elkészítési útmutató:</strong> {{description}}</p>
+      </div>
+    {{/each}}
+  {{else}}
+    <p>Még nem adtál hozzá recepteket.</p>
+  {{/if}}
+</div>

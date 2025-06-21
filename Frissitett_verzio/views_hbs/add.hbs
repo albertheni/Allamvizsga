@@ -1,0 +1,41 @@
+<div class="edit_add-container">
+  <h1>Új recept hozzáadása</h1>
+  <form action="/recipes/add" method="POST" enctype="multipart/form-data">
+    <div class="recipe-form-section">
+      <label for="nev">Név:</label>
+      <input type="text" id="nev" name="nev" required>
+    </div>
+    <div class="recipe-form-section">
+      <label for="kep">Kép feltöltése:</label>
+      <input type="file" id="kep" name="kep" accept="image/*">
+    </div>
+    <div class="recipe-form-section">
+      <label for="leiras">Leírás:</label>
+      <textarea id="leiras" name="leiras" required></textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="hozzavalok">Hozzávalók:</label>
+      <textarea id="hozzavalok" name="hozzavalok" required></textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="keszitesi_utmutato">Készítési útmutató:</label>
+      <textarea id="keszitesi_utmutato" name="keszitesi_utmutato" required></textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="elokeszitesi_ido">Előkészítési idő:</label>
+      <input type="text" id="elokeszitesi_ido" name="elokeszitesi_ido">
+    </div>
+    <div class="recipe-form-section">
+      <label for="sutesi_ido">Sütési idő:</label>
+      <input type="text" id="sutesi_ido" name="sutesi_ido">
+    </div>
+    <div class="recipe-form-section">
+      <label for="adagok_szama">Adagok száma:</label>
+      <input type="text" id="adagok_szama" name="adagok_szama">
+    </div>
+    <div class="recipe-form-section button-group">
+      <button type="submit" class="btn">Recept mentése</button>
+      <a href="/recipes" class="btn">Mégse</a>
+    </div>
+  </form>
+</div>

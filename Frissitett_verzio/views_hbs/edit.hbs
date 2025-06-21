@@ -1,0 +1,44 @@
+<div class="edit_add-container">
+  <h1>Recept szerkesztése: {{recipe.nev}}</h1>
+  <form action="/recipes/edit/{{recipe.id}}" method="POST" enctype="multipart/form-data">
+    <div class="recipe-form-section">
+      <label for="nev">Név:</label>
+      <input type="text" id="nev" name="nev" value="{{recipe.nev}}" required>
+    </div>
+    <div class="recipe-form-section">
+      <label for="kep">Kép (fájl feltöltése, ha újat szeretnél):</label>
+      <input type="file" id="kep" name="kep" accept="image/*">
+      {{#if recipe.kep}}
+        <p>Aktuális kép: {{recipe.kep}}</p>
+      {{/if}}
+    </div>
+    <div class="recipe-form-section">
+      <label for="leiras">Leírás:</label>
+      <textarea id="leiras" name="leiras" required>{{recipe.leiras}}</textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="hozzavalok">Hozzávalók:</label>
+      <textarea id="hozzavalok" name="hozzavalok" required>{{recipe.hozzavalok}}</textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="keszitesi_utmutato">Készítési útmutató:</label>
+      <textarea id="keszitesi_utmutato" name="keszitesi_utmutato" required>{{recipe.keszitesi_utmutato}}</textarea>
+    </div>
+    <div class="recipe-form-section">
+      <label for="elokeszitesi_ido">Előkészítési idő:</label>
+      <input type="text" id="elokeszitesi_ido" name="elokeszitesi_ido" value="{{recipe.elokeszitesi_ido}}">
+    </div>
+    <div class="recipe-form-section">
+      <label for="sutesi_ido">Sütési idő:</label>
+      <input type="text" id="sutesi_ido" name="sutesi_ido" value="{{recipe.sutesi_ido}}">
+    </div>
+    <div class="recipe-form-section">
+      <label for="adagok_szama">Adagok száma:</label>
+      <input type="text" id="adagok_szama" name="adagok_szama" value="{{recipe.adagok_szama}}">
+    </div>
+    <div class="recipe-form-section button-group">
+      <button type="submit" class="btn">Recept mentése</button>
+      <a href="/recipes" class="btn">Mégse</a>
+    </div>
+  </form>
+</div>

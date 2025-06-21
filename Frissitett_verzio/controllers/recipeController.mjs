@@ -238,6 +238,7 @@ export const listRecipes = async (req, res, next) => {
   try {
     let rows;
     const searchQuery = req.query.search;
+    const isAdmin = req.session.user && req.session.user.type === 'admin'; // Ellenőrzi az admin jogosultságot
 
     if (process.env.DB_TYPE === 'sqlite') {
       if (searchQuery) {
@@ -270,7 +271,10 @@ export const listRecipes = async (req, res, next) => {
       user: req.session.user,
       recipes: rows,
       searchQuery: searchQuery || '',
+      isAdmin,
     });
+
+    console.log('Session user:', req.session.user);
   } catch (err) {
     console.error('Hiba a listRecipes lekérdezésnél:', err);
     next(err);

@@ -3,6 +3,7 @@ import expressLayouts from "express-ejs-layouts";
 import httpStatus from "http-status-codes";
 import morgan from "morgan";
 import session from "express-session";
+import { create } from "express-handlebars"; // Handlebars importálása
 import pug from "pug"; // Pug importálása
 import { mainMenu } from "./helpers/menus.mjs";
 import { dirname, join } from "path";
@@ -22,19 +23,37 @@ const app = express();
 
 // Sablonmotor kiválasztása környezeti változó alapján
 const TEMPLATE_ENGINE = process.env.TEMPLATE_ENGINE || 'ejs'; // Alapértelmezett: EJS
-const VIEWS_DIR = TEMPLATE_ENGINE === 'pug' ? join(__dirname, 'views_pug') : join(__dirname, 'views');
+const VIEWS_DIR = TEMPLATE_ENGINE === 'pug' ? join(__dirname, 'views_pug') 
+  : TEMPLATE_ENGINE === 'hbs' ? join(__dirname, 'views_hbs') 
+  : join(__dirname, 'views');
 
 app.use(morgan("dev"));
 
 // Sablonmotor és nézetek mappa beállítása
-app.set("view engine", TEMPLATE_ENGINE);
 app.set("views", VIEWS_DIR);
-app.engine("pug", pug.__express); // Pug motor explicit regisztrálása
 
-// EJS layout használata, csak ha EJS a sablonmotor
 if (TEMPLATE_ENGINE === 'ejs') {
+  app.set("view engine", "ejs");
   app.use(expressLayouts);
   app.set("layout", "layouts/layout");
+} else if (TEMPLATE_ENGINE === 'pug') {
+  app.set("view engine", "pug");
+  app.engine("pug", pug.__express);
+} else if (TEMPLATE_ENGINE === 'hbs') {
+  const hbs = create({
+    defaultLayout: 'layouts/layout',
+    extname: '.hbs',
+    helpers: {
+      eq: function (v1, v2, options) {
+        if (v1 === v2) {
+          return options.fn(this);
+        }
+        return options.inverse(this);
+      }
+    }
+  });
+  app.engine('hbs', hbs.engine);
+  app.set('view engine', 'hbs');
 }
 
 app.set('view cache', false);
