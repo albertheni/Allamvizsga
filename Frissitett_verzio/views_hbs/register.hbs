@@ -23,8 +23,8 @@
     <div class="form-group">
       <label for="type">Típus</label>
       <select id="type" name="type" required>
-        <option value="user" {{#if userData.type '===' 'user'}}selected{{/if}}>Felhasználó</option>
-        <option value="admin" {{#if userData.type '===' 'admin'}}selected{{/if}}>Admin</option>
+        <option value="user" {{#unless isAdmin}}selected{{/unless}}>Felhasználó</option>
+        <option value="admin" {{#if isAdmin}}selected{{/if}}>Admin</option>
       </select>
     </div>
     <button type="submit" class="btn">Regisztráció</button>
